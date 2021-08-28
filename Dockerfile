@@ -80,18 +80,6 @@ RUN git clone -c http.sslVerify=false --branch ${EGG_VERSION} ${EGG_URL} ${SOURC
   && set > ${INSTALLDIR}/env_builder \
   && mv ${INSTALLDIR}/eggdrop.conf ${INSTALLDIR}/eggdrop.conf.dist
 
-LABEL maintainer="MalaGaM <MalaGaM.ARTiSPRETiS@GMail.com>" \
-  org.opencontainers.image.title="Eggdrop builder" \
-  org.opencontainers.image.description="Eggdrop on debian" \
-  org.opencontainers.image.authors="MalaGaM <MalaGaM.ARTiSPRETiS@GMail.com>" \
-  org.opencontainers.image.vendor="Creole Family" \
-  org.opencontainers.image.documentation="https://github.com/MalaGaM/docker-eggdrop" \
-  org.opencontainers.image.licenses="Apache License 2.0" \
-  org.opencontainers.image.version="0.0.1" \
-  org.opencontainers.image.url="https://github.com/MalaGaM/docker-eggdrop" \
-  org.opencontainers.image.source="https://github.com/MalaGaM/docker-eggdrop.git" \
-  egg.version=${EGG_VERSION} 
-
 RUN addgroup --system --gid ${UNIX_GID} ${UNIX_GROUP} \
   && adduser --quiet --disabled-password --gecos '' --system --home ${INSTALLDIR} --no-create-home --shell /bin/bash --uid ${UNIX_UID} --ingroup ${UNIX_GROUP} ${UNIX_USER} \
   && mkdir -p ${INSTALLDIR}/data /etc/dpkg/dpkg.cfg.d/ \
