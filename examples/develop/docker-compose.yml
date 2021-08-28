@@ -62,7 +62,7 @@ services:
     networks:
       - eggnet-network
   # With fewer example variables:
-  eggnet-slave:
+  eggnet-slave1:
     build: 
       # PATH OF Dockerfile 
       context: ../..
@@ -86,12 +86,44 @@ services:
       ### PARTYLINE CONFIGURATION
       - PPL_USER=eggnet
       - PPL_PASS=rootegg
-    container_name: "eggnet-slave"
+    container_name: "eggnet-slave1"
     restart: always
     volumes:
       - ${EGG_DIR_DATA:-./EggNet_DATADIR}/:/eggdrop-data/data:rw
     ports:
       - "9091:3333"
+    networks:
+      - eggnet-network
+  eggnet-slave2:
+    build: 
+      # PATH OF Dockerfile 
+      context: ../..
+      args:
+        ### The compilation options for eggdrop
+        # Choice of eggdrop version
+          # Branch/tags: develop, 1.9.1, ..
+        # The URL of the git repository
+        - PKG_EXTRA_RUNTIME=tcllib
+    environment:
+        # Bot irc Nickname
+      - EGG_NICK=EggNet-Slave2
+      ### EGGDROP CONFIGURATION
+        # Bot irc Nickname
+        # Your Nickname IRC
+      - EGG_ISMASTER=0
+      ### IRCD CONFIGURATION
+      - IRC_NETNAME=Libera
+      - IRC_SERVER=irc.libera.chat
+      - IRC_PORT=6667
+      ### PARTYLINE CONFIGURATION
+      - PPL_USER=eggnet
+      - PPL_PASS=rootegg
+    container_name: "eggnet-slave2"
+    restart: always
+    volumes:
+      - ${EGG_DIR_DATA:-./EggNet_DATADIR}/:/eggdrop-data/data:rw
+    ports:
+      - "9092:3333"
     networks:
       - eggnet-network
 networks:
