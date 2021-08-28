@@ -104,7 +104,6 @@ RUN addgroup --system --gid ${UNIX_GID} ${UNIX_GROUP} \
 WORKDIR ${INSTALLDIR}
 EXPOSE 3333
 COPY app/entrypoint.sh /
-COPY app/docker.tcl ${INSTALLDIR}/scripts/
 COPY app/startup-sequence /startup-sequence/
 
 WORKDIR ${INSTALLDIR}
