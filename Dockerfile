@@ -37,6 +37,8 @@ ENV INSTALLDIR=${INSTALLDIR}                                      \
   UNIX_USER=${UNIX_USER:-eggdrop}                                 \
   UNIX_GROUP=${UNIX_GROUP:-eggdrop}                               \
   DEBIAN_FRONTEND=noninteractive
+COPY ./app/entrypoint.sh /
+COPY ./app/startup-sequence /startup-sequence/
 
 RUN set -xvn \
   # Update APT/OS - Install builder packages 
@@ -51,9 +53,9 @@ RUN set -xvn \
   && echo "path-include /usr/share/locale/en*" >>/etc/dpkg/dpkg.cfg.d/docker-minimal \
   && apt-get update -qq \
   && apt-get upgrade -qq --yes \
-  && apt-get install -qq -o=Dpkg::Use-Pty=0 --yes --no-install-recommends $(echo ${PKG_BUILDER} ${PKG_EXTRA_BUILDER}) 
+  && apt-get install -qq -o=Dpkg::Use-Pty=0 --yes --no-install-recommends $(echo ${PKG_BUILDER} ${PKG_EXTRA_BUILDER}) \
   # Download eggdrop and configure source
-RUN git clone -c http.sslVerify=false --branch ${EGG_VERSION} ${EGG_URL} ${SOURCEDIR} \
+  && git clone -c http.sslVerify=false --branch ${EGG_VERSION} ${EGG_URL} ${SOURCEDIR} \
   && cd ${SOURCEDIR} \
   && EGG_MODULES_AVAILABLE=$(grep -ir 'loadmodule' eggdrop.conf | awk '{print $2}' | xargs) \
   && EGG_MODULES_DISABLE=$(echo $EGG_MODULES_AVAILABLE) \
@@ -78,23 +80,22 @@ RUN git clone -c http.sslVerify=false --branch ${EGG_VERSION} ${EGG_URL} ${SOURC
   && apt-get autoremove --purge -qq --yes \
   # EXPORT ENV to env_builder file
   && set > ${INSTALLDIR}/env_builder \
-  && mv ${INSTALLDIR}/eggdrop.conf ${INSTALLDIR}/eggdrop.conf.dist
-
-RUN addgroup --system --gid ${UNIX_GID} ${UNIX_GROUP} \
+  && mv ${INSTALLDIR}/eggdrop.conf ${INSTALLDIR}/eggdrop.conf.dist \
+  && addgroup --system --gid ${UNIX_GID} ${UNIX_GROUP} \
   && adduser --quiet --disabled-password --gecos '' --system --home ${INSTALLDIR} --no-create-home --shell /bin/bash --uid ${UNIX_UID} --ingroup ${UNIX_GROUP} ${UNIX_USER} \
   && mkdir -p ${INSTALLDIR}/data /etc/dpkg/dpkg.cfg.d/ \
   # Update APT/OS - Install runtime packages 
   && apt-get update -qq \
   && apt-get upgrade -qq --yes \
   && apt-get install -qq -o=Dpkg::Use-Pty=0 --yes --no-install-recommends $(echo ${PKG_RUNTIME} ${PKG_EXTRA_RUNTIME}) \
-  && chown -R ${UNIX_USER}:${UNIX_GROUP} ${INSTALLDIR}
+  && chown -R ${UNIX_USER}:${UNIX_GROUP} ${INSTALLDIR} \
+  # Fix files right
+  && chmod 0777 /entrypoint.sh /startup-sequence/*
 
 WORKDIR ${INSTALLDIR}
 EXPOSE 3333
-COPY app/entrypoint.sh /
-COPY app/startup-sequence /startup-sequence/
+
 
 WORKDIR ${INSTALLDIR}
-# Fix files right
-RUN chmod 0777 /entrypoint.sh /startup-sequence/*
+
 CMD ["/entrypoint.sh"]
