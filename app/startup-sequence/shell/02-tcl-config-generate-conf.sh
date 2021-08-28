@@ -46,7 +46,7 @@ sed -i -e "/set userfile \"LamestBot.user\"/c\set userfile \"${EGG_PATH_DATA}\/$
 sed -i -e "/set chanfile \"LamestBot.chan\"/c\set chanfile \"${EGG_PATH_DATA}\/${EGG_NICK}.chan\"" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 sed -i -e "/set notefile \"LamestBot.notes\"/c\set notefile \"${EGG_PATH_DATA}\/${EGG_NICK}.notes\"" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 
-sed -i -e "/set realname \"\/msg LamestBot hello\"/c\set realname \"Docker Eggdrop! Visit: https://git.io/JCTIG\"" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
+sed -i -e "/set realname \"\/msg LamestBot hello\"/c\set realname \"EggNet-Docker! Visit: https://git.io/JErB9\"" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 sed -i -e "/set network \"I.didn't.edit.my.config.file.net\"/c\set network \"${IRC_NETNAME:-Default}\"" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 sed -i -e '/edit your config file completely like you were told/d' ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 sed -i -e '/Please make sure you edit your config file completely/d' ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
