@@ -14,6 +14,7 @@ sed -i -e "/# server add ssl.example.net +7000/c\server add ${IRC_SERVER:-irc.li
 
 # Eggdrop name irc
 sed -i -e "/set nick \"Lamestbot\"/c\set nick \"${EGG_NICK:-Docker-Egg-???}\"" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
+sed -i -e "/set altnick \"Llamab?t\"/c\set altnick \"${EGG_NICK}?????\"" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 
 # Listen 
 sed -i -e "/#listen 3333 all/c\listen ${EGG_LISTEN:-3333} all" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
