@@ -30,7 +30,7 @@ services:
     environment:
       ### EGGDROP CONFIGURATION
         # Bot irc Nickname
-      - EGG_NICK=Docker-Egg-???
+      - EGG_NICK=EggNet-Master
         # Your Nickname IRC
       - EGG_OWNER=ZarTek
       # This eggdrop is the master?
@@ -73,6 +73,8 @@ services:
         # The URL of the git repository
         - PKG_EXTRA_RUNTIME=tcllib
     environment:
+        # Bot irc Nickname
+      - EGG_NICK=EggNet-Slave
       ### EGGDROP CONFIGURATION
         # Bot irc Nickname
         # Your Nickname IRC
