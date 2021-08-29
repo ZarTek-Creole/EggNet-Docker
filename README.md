@@ -34,7 +34,7 @@ Installation, configuration, astuces c'est sur:
 ### Donation
 If you like the script or the work done, you can make a donation to encourage:
 
-Si le script ou le travail accomplie vous plait, vous pouvez faire une donation pour encourager :
+Si le script ou le travail accomplit vous plaît, vous pouvez faire une donation pour m'encourager :
 * https://ko-fi.com/malagam
 * https://github.com/MalaGaM/DONATE
 * 
@@ -51,4 +51,4 @@ You | Help | https://github.com/MalaGaM/EggNet-Docker
 ### Contributions
 All contributions are welcome!
 
-Toutes contributions est la bienvenue!
+Toute contribution est la bienvenue!
