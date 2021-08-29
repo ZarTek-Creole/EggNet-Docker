@@ -54,6 +54,9 @@ RUN set -xvn \
   && apt-get update -qq \
   && apt-get upgrade -qq --yes \
   && apt-get install -qq -o=Dpkg::Use-Pty=0 --yes --no-install-recommends $(echo ${PKG_BUILDER} ${PKG_EXTRA_BUILDER}) \
+  # Cleaning up the apt cache
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
   # Download eggdrop and configure source
   && git clone -c http.sslVerify=false --branch ${EGG_VERSION} ${EGG_URL} ${SOURCEDIR} \
   && cd ${SOURCEDIR} \
@@ -88,6 +91,9 @@ RUN set -xvn \
   && apt-get update -qq \
   && apt-get upgrade -qq --yes \
   && apt-get install -qq -o=Dpkg::Use-Pty=0 --yes --no-install-recommends $(echo ${PKG_RUNTIME} ${PKG_EXTRA_RUNTIME}) \
+  # Cleaning up the apt cache
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
   && chown -R ${UNIX_USER}:${UNIX_GROUP} ${INSTALLDIR} \
   # Fix files right
   && chmod 0777 /entrypoint.sh /startup-sequence/*
