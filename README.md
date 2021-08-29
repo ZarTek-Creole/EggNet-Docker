@@ -18,7 +18,7 @@ Site internet officiel du script EggNet-Docker:
 ### Support
 If you have any remarks, suggestions, ideas, bugs, you can send them to me via the issue form:
 
-Si vous avez des remarques, des suggestions, des idées, des bogues vous pouvez me les faires parvenir via le formulaire issue:
+Si vous avez des remarques, des suggestions, des idées, des bogues vous pouvez me les faire parvenir via le formulaire issue:
 * https://github.com/MalaGaM/EggNet-Docker/issues
 
 ### Prerequisites
