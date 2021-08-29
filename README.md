@@ -3,7 +3,7 @@
 EggNet-Docker is a Docker image that allows you to quickly and easily launch multiple Eggdrops in botNet automate.
 
 **Français**
-EggNet-Docker est une image Docker qui vous permet de lancer rapidement et facilement plusieurs Eggdrops dans botNet automatiser.
+EggNet-Docker est une image Docker qui vous permet de lancer rapidement et facilement plusieurs Eggdrops automatiquement en botNet .
 
 
 ### Author | Auteur
@@ -18,7 +18,7 @@ Site internet officiel du script EggNet-Docker:
 ### Support
 If you have any remarks, suggestions, ideas, bugs, you can send them to me via the issue form:
 
-Si vous avez des remarques, des suggestions, des idées, des bogues vous pouvez me les faire parvenir via le formulaire issue:
+Si vous avez des remarques, des suggestions, des idées, des bogues vous pouvez me les faire parvenir via le formulaire issues:
 * https://github.com/MalaGaM/EggNet-Docker/issues
 
 ### Prerequisites
