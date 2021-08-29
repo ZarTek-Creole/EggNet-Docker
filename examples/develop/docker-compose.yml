@@ -1,8 +1,8 @@
 version: "3.9"
 services:
   eggnet-master:
-    build: 
-      # PATH OF Dockerfile 
+    build:
+      # PATH OF Dockerfile
       context: .
       args:
         ### The variables for the build of the image
@@ -41,7 +41,7 @@ services:
       ### IRCD CONFIGURATION
       - IRC_NETNAME=Libera
       - IRC_SERVER=irc.libera.chat
-        # IRCD PORT 
+        # IRCD PORT
           # without ssl: 6667
           # with ssl: +6697
       - IRC_PORT=+6697
@@ -63,8 +63,8 @@ services:
       - eggnet-network
   # With fewer example variables:
   eggnet-slave1:
-    build: 
-      # PATH OF Dockerfile 
+    build:
+      # PATH OF Dockerfile
       context: .
       args:
         ### The compilation options for eggdrop
@@ -95,8 +95,8 @@ services:
     networks:
       - eggnet-network
   eggnet-slave2:
-    build: 
-      # PATH OF Dockerfile 
+    build:
+      # PATH OF Dockerfile
       context: .
       args:
         ### The compilation options for eggdrop
