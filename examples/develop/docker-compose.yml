@@ -3,7 +3,7 @@ services:
   eggnet-master:
     build: 
       # PATH OF Dockerfile 
-      context: ../..
+      context: .
       args:
         ### The variables for the build of the image
         # OS Debian Version:
@@ -65,7 +65,7 @@ services:
   eggnet-slave1:
     build: 
       # PATH OF Dockerfile 
-      context: ../..
+      context: .
       args:
         ### The compilation options for eggdrop
         # Choice of eggdrop version
@@ -97,7 +97,7 @@ services:
   eggnet-slave2:
     build: 
       # PATH OF Dockerfile 
-      context: ../..
+      context: .
       args:
         ### The compilation options for eggdrop
         # Choice of eggdrop version
