@@ -23,8 +23,9 @@ services:
         - EGG_URL=https://github.com/eggheads/eggdrop.git
         # Arguments for the ./configure eggdrop command
         - EGG_CONFIGURE_ARGS=--disable-ipv6 --enable-tls --enable-tdns
-        # Eggdrop modules not to be compiled
-        - EGG_DISABLE_MODULES=woobie uptime ident assoc seen filesys compress share transfer twitch
+        # Eggdrop modules need be compiled
+        # Les modules a compiler et a charger
+        - EGG_MODULES_ENABLE=pbkdf2 blowfish dns channels server irc console
         - PKG_EXTRA_BUILDER
         - PKG_EXTRA_RUNTIME=mysqltcl tcllib tcl-tls
     environment:
