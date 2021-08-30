@@ -5,21 +5,30 @@ EggNet-Docker is a Docker image that allows you to quickly and easily launch mul
 **Français**
 EggNet-Docker est une image Docker qui vous permet de lancer rapidement et facilement plusieurs Eggdrops automatiquement en botNet .
 
-### Support
+# Support
 If you have any remarks, suggestions, ideas, bugs, you can send them to me via the issue form:
 
 Si vous avez des remarques, des suggestions, des idées, des bogues vous pouvez me les faire parvenir via le formulaire issues:
 * https://github.com/MalaGaM/EggNet-Docker/issues
 
-### Prerequisites
+# Prerequisites
 * [Docker](https://docs.docker.com/get-docker)
 * [Docker Compose](https://docs.docker.com/compose/install)
 
-### Download | Téléchargement
-#### With GIT | Avec GIT:
+
+# Docs
+* [Frequently Asked Questions](https://github.com/MalaGaM/EggNet-Docker/wiki/FAQ)
+* [Pre-requisites](https://github.com/MalaGaM/EggNet-Docker/wiki/Prerequisites)
+* [Installation](https://github.com/MalaGaM/EggNet-Docker/wiki/Installation)
+* [Configuration](https://github.com/MalaGaM/EggNet-Docker/wiki/Configuration)
+* [Usage](https://github.com/MalaGaM/EggNet-Docker/wiki/Usage)
+* [Contributions](https://github.com/MalaGaM/EggNet-Docker/wiki/Contributions)
+
+# Download | Téléchargement
+## With GIT | Avec GIT:
 `git clone https://github.com/MalaGaM/EggNet-Docker.git /path/to/install`
 
-#### With WGET | Avec WGET :
+## With WGET | Avec WGET :
 ```bash
 wget https://github.com/MalaGaM/EggNet-Docker/archive/refs/heads/master.zip -O /path/to/install/EggNet-Docker.zip
 cd /path/to/install/
@@ -27,46 +36,37 @@ unzip -x EggNet-Docker.zip
 rm EggNet-Docker.zip
 ```
 
-### How to try it? | Comment l'essayer?
+# How to try it? | Comment l'essayer?
 ```bash
 cd EggNet-Docker
 cp examples/develop/docker-compose.yml .
 docker-compose up -d
 ```
 
-### Docs
-Installation, configuration, tips it's on:
+# Donation
+If you like the code or the work done, you can make a donation to encourage:
 
-Installation, configuration, astuces c'est sur:
-* https://github.com/MalaGaM/EggNet-Docker/wiki
-
-### Donation
-If you like the script or the work done, you can make a donation to encourage:
-
-Si le script ou le travail accomplit vous plaît, vous pouvez faire une donation pour m'encourager :
+Si le code ou le travail accomplit vous plaît, vous pouvez faire une donation pour m'encourager :
 * https://ko-fi.com/malagam
 * https://github.com/MalaGaM/DONATE
 
-### Thank's | Merci
-Thanks to the various people who made the script possible:
+# Thank's | Merci
+Thanks to the various people who made the script possible
 
-Merci aux différentes personnes qui ont permis la réalisation du script:
-
-Name/Nom | participation | url
----------|----------|---------
-You | Help | https://github.com/MalaGaM/EggNet-Docker
+Merci aux différentes personnes qui ont permis la réalisation du script
 
 
-### Contributions
+# Contributions
 All contributions are welcome!
 
 Toute contribution est la bienvenue!
-### Website
+
+# Website
 Official website of the EggNet-Docker script:
 
 Site internet officiel du script EggNet-Docker:
 * https://github.com/MalaGaM/EggNet-Docker
 
 
-### Author | Auteur
+# Author | Auteur
 MalaGaM @ https://github.com/MalaGaM
