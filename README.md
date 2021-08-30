@@ -1,9 +1,31 @@
 # EggNet-Docker
+## Introduction
 **English**
 EggNet-Docker is a Docker image that allows you to quickly and easily launch multiple Eggdrops in botNet automate.
 
 **Français**
 EggNet-Docker est une image Docker qui vous permet de lancer rapidement et facilement plusieurs Eggdrops automatiquement en botNet .
+
+# EggNet Vs eggdrop docker
+Why use eggnet instead of eggdrop docker?
+
+EggNet is designed for the use of multiple robots automatically linking together.
+Eggdrop is for the use of a robot only for its simple use.
+
+EggNet allows you to add additional system packages easily during its build, like tcllib, tcl-tls, mysqltcl, ..
+
+EggNet compiles only eggdrop modules necessary for space saving and increased performance.
+
+EggNet allows you to customize the ./configuration command during compilation.
+
+EggNet makes it easy for you to load scripts with a structure designed for multi-robot use
+
+EggNet uses a screen in its image that allows you to access from your host machine to enrich the use in addition to access to the partyline.
+
+EggNet offers you logs of different types: script error, usual logfile, screen
+..
+
+[The comparative](https://github.com/MalaGaM/EggNet-Docker/wiki/Comparative)
 
 # Support
 If you have any remarks, suggestions, ideas, bugs, you can send them to me via the issue form:
