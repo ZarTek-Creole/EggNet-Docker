@@ -56,7 +56,7 @@ services:
     container_name: "eggnet-master"
     restart: always
     volumes:
-      - ${EGG_DIR_DATA:-./EggNet_DATADIR}/:/eggdrop-data/data:rw
+      - ./EggNet_DATADIR/:/eggdrop-data/data:rw
     ports:
       - "9090:3333"
     networks:
@@ -89,7 +89,7 @@ services:
     container_name: "eggnet-slave1"
     restart: always
     volumes:
-      - ${EGG_DIR_DATA:-./EggNet_DATADIR}/:/eggdrop-data/data:rw
+      - ./EggNet_DATADIR/:/eggdrop-data/data:rw
     ports:
       - "9091:3333"
     networks:
@@ -121,7 +121,7 @@ services:
     container_name: "eggnet-slave2"
     restart: always
     volumes:
-      - ${EGG_DIR_DATA:-./EggNet_DATADIR}/:/eggdrop-data/data:rw
+      - ./EggNet_DATADIR/:/eggdrop-data/data:rw
     ports:
       - "9092:3333"
     networks:
