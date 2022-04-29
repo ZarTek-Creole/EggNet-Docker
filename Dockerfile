@@ -52,7 +52,6 @@ RUN set -xvn \
   && echo "path-exclude /usr/share/locale/*" >>/etc/dpkg/dpkg.cfg.d/docker-minimal \
   && echo "path-include /usr/share/locale/en*" >>/etc/dpkg/dpkg.cfg.d/docker-minimal \
   && apt-get update -qq \
-  && apt-get upgrade -qq --yes \
   && apt-get install -qq -o=Dpkg::Use-Pty=0 --yes --no-install-recommends $(echo ${PKG_BUILDER} ${PKG_EXTRA_BUILDER}) \
   # Cleaning up the apt cache
   && apt-get clean \
