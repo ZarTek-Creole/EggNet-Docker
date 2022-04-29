@@ -10,3 +10,4 @@
 
 EggNet_DATADIR/
 docker-compose.yml
+tmp.Dockerfile
