@@ -1,3 +1,4 @@
+[![Docker Image CI](https://github.com/ZarTek-Creole/EggNet-Docker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ZarTek-Creole/EggNet-Docker/actions/workflows/docker-image.yml)
 # EggNet-Docker
 ## Introduction
 **English**
