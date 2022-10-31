@@ -10,20 +10,20 @@ proc userfileloaded { args } {
 #::cron::every Update_botnet 300 ::BOTNET_CREATE
 timer 5 ::BOTNET_CREATE 0
 proc ::BOTNET_CREATE {} {
-	foreach FILE_SCT [glob -directory $::EGG_PATH_SECRETS *.sct] {
-		set B_NAME		[file rootname [file tail $FILE_SCT]]
-		if { "${::botnet-nick}" == "$B_NAME" } { continue }
+	foreach FILE_SCT [glob -directory ${::EGG_PATH_SECRETS} *.sct] {
+		set B_NAME		[file rootname [file tail ${FILE_SCT}]]
+		if { "${::botnet-nick}" == "${B_NAME}" } { continue }
 
-		set FILE_PIPE	[open "$FILE_SCT" r];
-		set SCT_DATA	[read $FILE_PIPE];
-		close $FILE_PIPE;
+		set FILE_PIPE	[open "${FILE_SCT}" r];
+		set SCT_DATA	[read ${FILE_PIPE}];
+		close ${FILE_PIPE};
 		
-		set BOT_ISMASTER	[lindex $SCT_DATA 0];
-		set BOT_PASSWORD	[lindex $SCT_DATA 1];
-		set BOT_PORT		[lindex $SCT_DATA 2];
-		set BOT_HOSTNAME	[lindex $SCT_DATA 3];
-		set BOT_LASTMOD		[lindex $SCT_DATA 4];
-		if { [validuser ${B_NAME}] != 1 && $BOT_ISMASTER == 1 && $::EGG_ISMASTER == 0} {
+		set BOT_ISMASTER	[lindex ${SCT_DATA} 0];
+		set BOT_PASSWORD	[lindex ${SCT_DATA} 1];
+		set BOT_PORT		[lindex ${SCT_DATA} 2];
+		set BOT_HOSTNAME	[lindex ${SCT_DATA} 3];
+		set BOT_LASTMOD		[lindex ${SCT_DATA} 4];
+		if { [validuser ${B_NAME}] != 1 && ${BOT_ISMASTER} == 1 && ${::EGG_ISMASTER} == 0} {
 			putlog "addbot ${B_NAME} ${BOT_HOSTNAME} ${BOT_PORT}"
 			deluser ${B_NAME}
 			addbot ${B_NAME} ${BOT_HOSTNAME} ${BOT_PORT}
@@ -32,7 +32,7 @@ proc ::BOTNET_CREATE {} {
 			catch {save}
 			catch {link ${B_NAME}}
 		}
-		if { [validuser ${B_NAME}] != 1 && $BOT_ISMASTER == 0 && $::EGG_ISMASTER == 1} {
+		if { [validuser ${B_NAME}] != 1 && ${BOT_ISMASTER} == 0 && ${::EGG_ISMASTER} == 1} {
 			putlog "addbot ${B_NAME} ${BOT_HOSTNAME} ${BOT_PORT}"
 			deluser ${B_NAME}
 			addbot ${B_NAME} ${BOT_HOSTNAME}

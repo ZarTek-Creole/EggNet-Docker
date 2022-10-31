@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# Please Use Google Shell Style: https://google.github.io/styleguide/shell.xml
 
 # ---- Start unofficial bash strict mode boilerplate
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
@@ -11,8 +13,10 @@ set -o posix    # more strict failures in subshells
 IFS="$(printf "\n\t")"
 # ---- End unofficial bash strict mode boilerplate
 
-
-# Active .tcl and .set
-sed -i 's@#unbind dcc n tcl \*dcc:tcl@bind dcc n tcl *dcc:tcl@' "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf"
-sed -i 's@#unbind dcc n set \*dcc:set@bind dcc n set *dcc:set@' "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf"
-sed -i 's@set must-be-owner 1@set must-be-owner 0@' "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf"
+git ls-files .. | (grep -E '(^|/)Dockerfile' || true) | {
+    while IFS= read -r file_path; do
+        echo -n "hadolint ${file_path} "
+        docker run --rm --interactive hadolint/hadolint:v1.16.3 hadolint /dev/stdin <"${file_path}"
+        echo ✓
+    done
+}

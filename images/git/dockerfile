@@ -1,0 +1,41 @@
+ARG OS_NAME=alpine \
+    OS_VERSION=latest \
+    DIR_DESTINATION \
+    BUILD_DATE \
+    EGG_VERSION \
+    HUB_NAME=git \
+    AUTHOR_MAIL="zartek.creole@gmail.com" \
+    AUTHOR_NAME="ZarTek" \
+    AUTHOR_WEBSITE="https://github.com/ZarTek-Creole/EggNet-Docker" \
+    EGG_URL=https://github.com/eggheads/eggdrop.git
+
+FROM ${OS_NAME}:${OS_VERSION}
+
+ARG OS_NAME \
+    OS_VERSION \
+    DIR_DESTINATION \
+    BUILD_DATE \
+    EGG_VERSION \
+    HUB_NAME \
+    AUTHOR_MAIL \
+    AUTHOR_NAME \
+    AUTHOR_WEBSITE \
+    EGG_URL
+
+LABEL maintainer="${AUTHOR_MAIL}" \
+    org.label-schema.build-date="${BUILD_DATE}" \
+    eggdrop.version="${EGG_VERSION}" \
+    org.opencontainers.image.source="${AUTHOR_WEBSITE}" \
+    os.name="${OS_NAME}" \
+    os.version="${OS_VERSION}" \
+    Name="eggnet-${HUB_NAME} by ${AUTHOR_NAME}" \
+    Version="${BUILD_VERSION}"
+
+RUN apk update
+RUN apk add --no-cache git
+CMD ["/bin/sh"]
+VOLUME [/git]
+WORKDIR /git
+RUN git clone --branch "${EGG_VERSION}" "${EGG_URL}" /git/"${DIR_DESTINATION}"
+ENTRYPOINT ["git"]
+CMD ["--help"]

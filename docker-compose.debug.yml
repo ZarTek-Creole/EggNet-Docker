@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  eggnet:
+    image: eggnet
+    build:
+      context: .
+      dockerfile: ./Dockerfile

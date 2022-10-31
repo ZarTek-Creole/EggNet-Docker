@@ -1,8 +1,8 @@
 language: bash
-arch: amd64          # optional, this is default, routes to a full VM
-os: linux            # optional, this is default
-dist: focal          # or bionic | xenial | trusty | precise with xenial as default
-     
+arch: amd64 # optional, this is default, routes to a full VM
+os: linux # optional, this is default
+dist: focal # or bionic | xenial | trusty | precise with xenial as default
+
 sudo: required
 services:
   - docker
@@ -11,12 +11,12 @@ env:
   global:
     - COMPOSE_FILES="-f examples/develop/docker-compose.yml"
 before_install:
- - docker --version
- - docker-compose --version
+  - docker --version
+  - docker-compose --version
 
 script:
- - docker-compose ${COMPOSE_FILES} build
- - docker-compose ${COMPOSE_FILES} -p eggnetdockercompose up -d
- - count=0; until docker logs eggnetdockercompose_site_1 | grep "Server running..." &> /dev/null || (( count++ > 12 )); do echo "Waiting $count"; sleep 5; done
- - docker logs eggnetdockercompose_site_1
- - docker logs eggnetdockercompose_site_1 | grep "Server running..." &> /dev/null
+  - docker-compose ${COMPOSE_FILES} build
+  - docker-compose ${COMPOSE_FILES} -p eggnetdockercompose up -d
+  - count=0; until docker logs eggnetdockercompose_site_1 | grep "Server running..." &> /dev/null || (( count++ > 12 )); do echo "Waiting ${count}"; sleep 5; done
+  - docker logs eggnetdockercompose_site_1
+  - docker logs eggnetdockercompose_site_1 | grep "Server running..." &> /dev/null

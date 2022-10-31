@@ -9,4 +9,4 @@ rm -rf EggNet_DATADIR/files
 rm -rf EggNet_DATADIR/conf
 docker-compose up -d --build --remove-orphans
 docker-compose ps
-cd ${TMP_PWD}
+cd "${TMP_PWD}" || exit 1
