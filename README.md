@@ -1,12 +1,8 @@
-[![Docker Image CI](https://github.com/ZarTek-Creole/EggNet-Docker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ZarTek-Creole/EggNet-Docker/actions/workflows/docker-image.yml)
-# EggNet-Docker
-## Introduction
-**English**
-EggNet-Docker is a Docker image that allows you to quickly and easily launch multiple Eggdrops in botNet automate.
+<span class="badge-opencollective"><a href="https://github.com/ZarTek-Creole/DONATE" title="Donate to this project"><img src="https://img.shields.io/badge/open%20collective-donate-yellow.svg" alt="Open Collective donate button" /></a></span>
+[![CC BY 4.0][cc-by-shield]][cc-by]
 
-**Français**
-EggNet-Docker est une image Docker qui vous permet de lancer rapidement et facilement plusieurs Eggdrops automatiquement en botNet .
-
+[cc-by]: http://creativecommons.org/licenses/by/4.0/
+[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
 # EggNet Vs eggdrop docker
 Why use eggnet instead of eggdrop docker?
 
@@ -26,13 +22,13 @@ EggNet uses a screen in its image that allows you to access from your host machi
 EggNet offers you logs of different types: script error, usual logfile, screen
 ..
 
-[The comparative](https://github.com/MalaGaM/EggNet-Docker/wiki/Comparative)
+[The comparative](github.com/ZarTek-Creole/EggNet-Docker/wiki/Comparative)
 
 # Support
 If you have any remarks, suggestions, ideas, bugs, you can send them to me via the issue form:
 
 Si vous avez des remarques, des suggestions, des idées, des bogues vous pouvez me les faire parvenir via le formulaire issues:
-* https://github.com/MalaGaM/EggNet-Docker/issues
+* github.com/ZarTek-Creole/EggNet-Docker/issues
 
 # Prerequisites
 * [Docker](https://docs.docker.com/get-docker)
@@ -40,20 +36,20 @@ Si vous avez des remarques, des suggestions, des idées, des bogues vous pouvez 
 
 
 # Docs
-* [Frequently Asked Questions](https://github.com/MalaGaM/EggNet-Docker/wiki/FAQ)
-* [Pre-requisites](https://github.com/MalaGaM/EggNet-Docker/wiki/Prerequisites)
-* [Installation](https://github.com/MalaGaM/EggNet-Docker/wiki/Installation)
-* [Configuration](https://github.com/MalaGaM/EggNet-Docker/wiki/Configuration)
-* [Usage](https://github.com/MalaGaM/EggNet-Docker/wiki/Usage)
-* [Contributions](https://github.com/MalaGaM/EggNet-Docker/wiki/Contributions)
+* [Frequently Asked Questions](github.com/ZarTek-Creole/EggNet-Docker/wiki/FAQ)
+* [Pre-requisites](github.com/ZarTek-Creole/EggNet-Docker/wiki/Prerequisites)
+* [Installation](github.com/ZarTek-Creole/EggNet-Docker/wiki/Installation)
+* [Configuration](github.com/ZarTek-Creole/EggNet-Docker/wiki/Configuration)
+* [Usage](github.com/ZarTek-Creole/EggNet-Docker/wiki/Usage)
+* [Contributions](github.com/ZarTek-Creole/EggNet-Docker/wiki/Contributions)
 
 # Download | Téléchargement
 ## With GIT | Avec GIT:
-`git clone https://github.com/MalaGaM/EggNet-Docker.git /path/to/install`
+`git clone github.com/ZarTek-Creole/EggNet-Docker.git /path/to/install`
 
 ## With WGET | Avec WGET :
 ```bash
-wget https://github.com/MalaGaM/EggNet-Docker/archive/refs/heads/master.zip -O /path/to/install/EggNet-Docker.zip
+wget github.com/ZarTek-Creole/EggNet-Docker/archive/refs/heads/master.zip -O /path/to/install/EggNet-Docker.zip
 cd /path/to/install/
 unzip -x EggNet-Docker.zip
 rm EggNet-Docker.zip
@@ -70,8 +66,8 @@ docker-compose up -d
 If you like the code or the work done, you can make a donation to encourage:
 
 Si le code ou le travail accomplit vous plaît, vous pouvez faire une donation pour m'encourager :
-* https://ko-fi.com/malagam
-* https://github.com/MalaGaM/DONATE
+* https://ko-fi.com/ZarTek
+* github.com/ZarTek-Creole/DONATE
 
 # Thank's | Merci
 Thanks to the various people who made the script possible
@@ -88,8 +84,8 @@ Toute contribution est la bienvenue!
 Official website of the EggNet-Docker script:
 
 Site internet officiel du script EggNet-Docker:
-* https://github.com/MalaGaM/EggNet-Docker
+* github.com/ZarTek-Creole/EggNet-Docker
 
 
 # Author | Auteur
-MalaGaM @ https://github.com/MalaGaM
+ZarTek @ github.com/ZarTek-Creole
