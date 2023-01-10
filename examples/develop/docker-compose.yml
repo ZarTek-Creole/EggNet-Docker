@@ -1,8 +1,9 @@
+version: "3.9"
 services:
   eggnet-master:
-    build:
-      # PATH OF Dockerfile
-      context: .
+    build: 
+      # PATH OF Dockerfile 
+      context: ../..
       args:
         ### The variables for the build of the image
         # OS Debian Version:
@@ -10,27 +11,26 @@ services:
         # OS Version:
         - OS_VERSION=stable-slim
         # User and group unix
-        - UNIX_UID=1000
-        - UNIX_GID=1000
+        - USER_UID=1000
+        - USER_GID=1000
         - UNIX_USER=debian
         - UNIX_GROUP=debian
         ### The compilation options for eggdrop
         # Choice of eggdrop version
           # Branch/tags: develop, 1.9.1, ..
-        - EGG_VERSION=develop
+        - EGG_VERSION=dns.userfile
         # The URL of the git repository
-        - EGG_URL=https://github.com/eggheads/eggdrop.git
+        - EGG_URL=https://github.com/michaelortmann/eggdrop.git
         # Arguments for the ./configure eggdrop command
         - EGG_CONFIGURE_ARGS=--disable-ipv6 --enable-tls --enable-tdns
-        # Eggdrop modules need be compiled
-        # Les modules a compiler et a charger
-        - EGG_MODULES_ENABLE=pbkdf2 blowfish dns channels server irc console
+        # Eggdrop modules not to be compiled
+        - EGG_DISABLE_MODULES=woobie uptime ident assoc seen filesys compress share transfer twitch
         - PKG_EXTRA_BUILDER
         - PKG_EXTRA_RUNTIME=mysqltcl tcllib tcl-tls
     environment:
       ### EGGDROP CONFIGURATION
         # Bot irc Nickname
-      - EGG_NICK=EggNet-Master
+      - EGG_NICK=Docker-Egg-???
         # Your Nickname IRC
       - EGG_OWNER=ZarTek
       # This eggdrop is the master?
@@ -41,7 +41,7 @@ services:
       ### IRCD CONFIGURATION
       - IRC_NETNAME=Libera
       - IRC_SERVER=irc.libera.chat
-        # IRCD PORT
+        # IRCD PORT 
           # without ssl: 6667
           # with ssl: +6697
       - IRC_PORT=+6697
@@ -56,74 +56,46 @@ services:
     container_name: "eggnet-master"
     restart: always
     volumes:
-      - ./EggNet_DATADIR/:/eggdrop-data/data:rw
+      - ${EGG_DIR_DATA:-./EGG_data}/:/eggdrop-data/data:rw
     ports:
       - "9090:3333"
     networks:
       - eggnet-network
-  # With fewer example variables:
-  eggnet-slave1:
-    build:
-      # PATH OF Dockerfile
-      context: .
+
+  eggnet-slave:
+    build: 
+      # PATH OF Dockerfile 
+      context: ../..
       args:
         ### The compilation options for eggdrop
         # Choice of eggdrop version
           # Branch/tags: develop, 1.9.1, ..
+        - EGG_VERSION=dns.userfile
         # The URL of the git repository
-        - PKG_EXTRA_RUNTIME=tcllib
+        - EGG_URL=https://github.com/michaelortmann/eggdrop.git
+        - PKG_EXTRA_RUNTIME=mysqltcl tcllib tcl-tls
     environment:
-        # Bot irc Nickname
-      - EGG_NICK=EggNet-Slave
       ### EGGDROP CONFIGURATION
         # Bot irc Nickname
         # Your Nickname IRC
+      - EGG_OWNER=ZarTek
       - EGG_ISMASTER=0
       ### IRCD CONFIGURATION
       - IRC_NETNAME=Libera
       - IRC_SERVER=irc.libera.chat
+        # IRCD PORT 
+          # without ssl: 6667
+          # with ssl: +6697
       - IRC_PORT=6667
       ### PARTYLINE CONFIGURATION
       - PPL_USER=eggnet
       - PPL_PASS=rootegg
-    container_name: "eggnet-slave1"
+    container_name: "eggnet-slave"
     restart: always
     volumes:
-      - ./EggNet_DATADIR/:/eggdrop-data/data:rw
+      - ${EGG_DIR_DATA:-./EGG_data}/:/eggdrop-data/data:rw
     ports:
       - "9091:3333"
-    networks:
-      - eggnet-network
-  eggnet-slave2:
-    build:
-      # PATH OF Dockerfile
-      context: .
-      args:
-        ### The compilation options for eggdrop
-        # Choice of eggdrop version
-          # Branch/tags: develop, 1.9.1, ..
-        # The URL of the git repository
-        - PKG_EXTRA_RUNTIME=tcllib
-    environment:
-        # Bot irc Nickname
-      - EGG_NICK=EggNet-Slave2
-      ### EGGDROP CONFIGURATION
-        # Bot irc Nickname
-        # Your Nickname IRC
-      - EGG_ISMASTER=0
-      ### IRCD CONFIGURATION
-      - IRC_NETNAME=Libera
-      - IRC_SERVER=irc.libera.chat
-      - IRC_PORT=6667
-      ### PARTYLINE CONFIGURATION
-      - PPL_USER=eggnet
-      - PPL_PASS=rootegg
-    container_name: "eggnet-slave2"
-    restart: always
-    volumes:
-      - ./EggNet_DATADIR/:/eggdrop-data/data:rw
-    ports:
-      - "9092:3333"
     networks:
       - eggnet-network
 networks:
