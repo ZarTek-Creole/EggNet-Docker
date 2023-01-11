@@ -25,6 +25,10 @@ ENV INSTALLDIR=${INSTALLDIR}                                      \
   EGG_LISTEN="3333"                                               \
   EGG_LOG_RAW_IO="0"                                              \
   EGG_CONF_GENERATE="1"                                           \
+  EGG_TLS_GENERATE="1"                                            \
+  EGG_TLS_REGENERATE="0"                                          \
+  EGG_SASL="1"                                                    \
+  EGG_CAPS="1"                                                    \
   EGG_MODULES_ENABLE=${EGG_MODULES_ENABLE}                        \
   EGG_MODULES_AVAILABLE=""                                        \
   EGG_MODULES_DISABLE=""                                          \
@@ -33,8 +37,10 @@ ENV INSTALLDIR=${INSTALLDIR}                                      \
   IRC_PORT="+6697"                                                \
   IRC_SERVER="irc.libera.chat"                                    \
   IRC_NETNAME="Default"                                           \
-  PPL_USER="user"                                                 \
-  PPL_PASS="Password"                                             \
+  IRC_SERVICE_USER="eggnet"                                       \
+  IRC_SERVICE_PASS="password1337"                                 \
+  PPL_USER="eggnet"                                               \
+  PPL_PASS="password1337"                                         \
   USER_UID="${USER_UID}"                                          \
   USER_GID="${USER_UID}"                                          \
   UNIX_USER="${UNIX_USER}"                                        \
@@ -72,15 +78,15 @@ LABEL maintainer="ZarTek <ZarTek.Creole@GMail.com>" \
   org.opencontainers.image.version="0.0.2" \
   org.opencontainers.image.url="https://github.com/ZarTek-Creole/docker-eggdrop" \
   org.opencontainers.image.source="https://github.com/ZarTek-Creole/docker-eggdrop.git" \
-  egg.version=${EGG_VERSION} 
+  egg.version=${EGG_VERSION}
 
 
 # VOLUME ${INSTALLDIR}
 RUN mkdir -p ${INSTALLDIR}/data /etc/dpkg/dpkg.cfg.d/ \
-  # Update APT/OS - Install runtime packages 
+  # Update APT/OS - Install runtime packages
   && apt-get update -qq \
   && apt-get upgrade -qq --yes \
-  && apt-get install -qq -o=Dpkg::Use-Pty=0 --yes --no-install-recommends $(echo ${PKG_RUNTIME} ${PKG_EXTRA_RUNTIME}) 
+  && apt-get install -qq -o=Dpkg::Use-Pty=0 --yes --no-install-recommends $(echo ${PKG_RUNTIME} ${PKG_EXTRA_RUNTIME})
 
 WORKDIR ${INSTALLDIR}
 EXPOSE 3333

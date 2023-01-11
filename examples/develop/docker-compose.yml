@@ -1,47 +1,61 @@
 version: "3.9"
 services:
-  eggnet-master:
-    build: 
-      # PATH OF Dockerfile 
-      context: ../..
+  eggdrop-targate-ng:
+    build:
+      context: /home/docker/_images/eggdrop
+      tags:
+        - "eggdrop-targate-ng:latest"
       args:
         ### The variables for the build of the image
-        # OS Debian Version:
-        - OS_NAME=debian
-        # OS Version:
-        - OS_VERSION=stable-slim
+        # OS Debian Version: (default: debian)
+        - OS_NAME=${OS_NAME:-debian}
+        # OS Version: (default: stable-slim)
+        - OS_VERSION=${OS_VERSION:-stable-slim}
         # User and group unix
-        - USER_UID=1000
-        - USER_GID=1000
-        - UNIX_USER=debian
-        - UNIX_GROUP=debian
+        - UNIX_UID=${UNIX_UID:-1000}
+        - UNIX_GID=${UNIX_GID:-1000}
+        - UNIX_USER=${UNIX_USER:-debian}
+        - UNIX_GROUP=${UNIX_GROUP:-debian}
         ### The compilation options for eggdrop
         # Choice of eggdrop version
           # Branch/tags: develop, 1.9.1, ..
-        - EGG_VERSION=dns.userfile
+        - EGG_VERSION=${EGG_VERSION:-develop}
         # The URL of the git repository
-        - EGG_URL=https://github.com/michaelortmann/eggdrop.git
+        - EGG_URL=${EGG_URL:-https://github.com/eggheads/eggdrop.git}
         # Arguments for the ./configure eggdrop command
-        - EGG_CONFIGURE_ARGS=--disable-ipv6 --enable-tls --enable-tdns
+        - EGG_CONFIGURE_ARGS=${EGG_CONFIGURE_ARGS:--disable-ipv6 --enable-tls --enable-tdns}
         # Eggdrop modules not to be compiled
-        - EGG_DISABLE_MODULES=woobie uptime ident assoc seen filesys compress share transfer twitch
+        - EGG_DISABLE_MODULES=${EGG_DISABLE_MODULES:-twitch transfer share compress filesys woobie seen assoc ident uptime ctcp notes}
         - PKG_EXTRA_BUILDER
-        - PKG_EXTRA_RUNTIME=mysqltcl tcllib tcl-tls
+        - PKG_EXTRA_BUILDER=${PKG_EXTRA_BUILDER:-}
+        - PKG_EXTRA_RUNTIME=${PKG_EXTRA_RUNTIME:-mysqltcl tcllib tcl-tls}
     environment:
       ### EGGDROP CONFIGURATION
         # Bot irc Nickname
       - EGG_NICK=Docker-Egg-???
         # Your Nickname IRC
       - EGG_OWNER=ZarTek
+        # Your Username IRC
+      - EGG_USERNAME=EggNet
+      - EGG_SASL=1
+      - EGG_CAPS=1
       # This eggdrop is the master?
         # 1 : HUB
         # 0 : LEAF
         # Default : LEAF
       - EGG_ISMASTER=1
+      # Active logs raw for debug?
+      - EGG_LOG_RAW_IO=0
+      # Need (re)generate the config file?
+      - EGG_CONF_GENERATE=1
+      # Need (re)generate the TLS?
+      - EGG_TLS_GENERATE=1
+      - EGG_TLS_REGENERATE=1
+      - EGG_KEEP_NICK=1
       ### IRCD CONFIGURATION
       - IRC_NETNAME=Libera
       - IRC_SERVER=irc.libera.chat
-        # IRCD PORT 
+        # IRCD PORT
           # without ssl: 6667
           # with ssl: +6697
       - IRC_PORT=+6697
@@ -50,6 +64,9 @@ services:
         # List of salons to join
           # Example: #MyChannel1,#MyChannel2
       - IRC_CHANNELS=#docker-eggnet
+      # Identify to services informations:
+      - IRC_SERVICE_USER=EggNet
+      - IRC_SERVICE_PASS=password
       ### PARTYLINE CONFIGURATION
       - PPL_USER=eggnet
       - PPL_PASS=rootegg
@@ -63,8 +80,8 @@ services:
       - eggnet-network
 
   eggnet-slave:
-    build: 
-      # PATH OF Dockerfile 
+    build:
+      # PATH OF Dockerfile
       context: ../..
       args:
         ### The compilation options for eggdrop
@@ -83,7 +100,7 @@ services:
       ### IRCD CONFIGURATION
       - IRC_NETNAME=Libera
       - IRC_SERVER=irc.libera.chat
-        # IRCD PORT 
+        # IRCD PORT
           # without ssl: 6667
           # with ssl: +6697
       - IRC_PORT=6667

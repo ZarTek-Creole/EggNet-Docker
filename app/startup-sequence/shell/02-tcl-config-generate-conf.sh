@@ -1,10 +1,9 @@
 #!/bin/bash
 # Need generate or stop ?
 [ $EGG_CONF_GENERATE == 0 ] && exit 0
-
 [ -e ${INSTALLDIR}/eggdrop.conf ] && rm ${INSTALLDIR}/eggdrop.conf
 
-mkdir -p ${EGG_PATH_DATA} ${EGG_PATH_LOGS} ${EGG_PATH_CONF} ${EGG_PATH_SCRIPTS}/${IRC_NETNAME}/${EGG_NICK} ${EGG_PATH_SECRETS}
+mkdir -p ${EGG_PATH_DATA} ${EGG_PATH_LOGS} ${EGG_PATH_CONF} ${EGG_PATH_SCRIPTS}/${IRC_NETNAME}/${EGG_NICK} ${EGG_PATH_SECRETS} ${EGG_PATH_TLS}
 cp ${INSTALLDIR}/eggdrop.conf.dist ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 ln -sfn ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf ${INSTALLDIR}/eggdrop.conf || exit 1
 
@@ -15,7 +14,7 @@ sed -i -e "/# server add ssl.example.net +7000/c\server add ${IRC_SERVER:-irc.li
 # Eggdrop name irc
 sed -i -e "/set nick \"Lamestbot\"/c\set nick \"${EGG_NICK:-Docker-Egg-???}\"" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 
-# Listen 
+# Listen
 sed -i -e "/#listen 3333 all/c\listen ${EGG_LISTEN:-3333} all" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 
 # DNS servers
@@ -50,9 +49,7 @@ sed -i -e "/set network \"I.didn't.edit.my.config.file.net\"/c\set network \"${I
 sed -i -e '/edit your config file completely like you were told/d' ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 sed -i -e '/Please make sure you edit your config file completely/d' ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 
-
-
-# BOTNET SETTINGS 
+# BOTNET SETTINGS
 echo "### BOTNET SETTINGS ###" >> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 echo "set EGG_ISMASTER \"${EGG_ISMASTER:-0}\"" >> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 
@@ -67,20 +64,7 @@ echo "set ::EGG_PASSWORD \"${EGG_PASSWORD:-BOTNET}\"" >> ${EGG_PATH_CONF}/${EGG_
 echo "${EGG_ISMASTER} ${EGG_PASSWORD} ${EGG_LISTEN:-3333} ${EGG_HOSTNAME} ${EGG_MYIP} ${EGG_LASTMOD}" > ${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.sct
 # BOTNET SETTINGS - END
 
-
-#SASL 
-sed -i "s@^#set sasl 0@set sasl 1@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-sed -i "s@^#set sasl-mechanism 0@set sasl-mechanism 0@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-sed -i "s@^#set sasl-username \"llamabot\"@set sasl-username \"${EGG_NICK}\"@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-sed -i "s@^#set sasl-password \"password\"@set sasl-password \"${PPL_PASS}\"@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-openssl ecparam -genkey -name prime256v1 -out ${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.pem
-sed -i "s@^#set sasl-ecdsa-key \"eggdrop-ecdsa.pem\"@set sasl-ecdsa-key \"${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.pem\"@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-sed -i "s@^#set invite-notify 0@set invite-notify 1@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-sed -i "s@^#set message-tags 0@set message-tags 1@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-sed -i "s@^#set account-tag 0@set account-tag 1@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-openssl genrsa -out ${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.key 4096
-sed -i "s@^#set ssl-privatekey \"eggdrop.key\"@set ssl-privatekey \"${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.key\"@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-openssl req -new -key ${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.key  -x509 -out ${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.crt -days 365 -batch
-sed -i "s@^#set ssl-certificate \"eggdrop.crt\"@set ssl-certificate \"${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.crt\"@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 sed -i "s@^set msg-rate 2@set msg-rate 0@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
+sed -i "s@^set telnet-flood 5:60@set telnet-flood 0:0@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
+sed -i "s@^set max-queue-msg 300@set max-queue-msg 600@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 
