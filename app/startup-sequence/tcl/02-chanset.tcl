@@ -1,5 +1,4 @@
 set global-chanset {
-
    -autoop         -autovoice        -protectfriends -protectops        -autohalfop
    -bitch          +cycle            -revenge        -revengebot
    -dontkickops    +dynamicbans      -secret         -seen
