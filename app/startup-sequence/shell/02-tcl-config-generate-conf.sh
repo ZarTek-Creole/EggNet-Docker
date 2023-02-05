@@ -24,7 +24,8 @@ sed -i -e "/# server add ssl.example.net +7000/c\server add ${IRC_SERVER:-"irc.l
 sed -i -e "/set nick \"Lamestbot\"/c\set nick \"${EGG_NICK:-"Docker-Egg-???"}\"" "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf"
 
 # Listen
-sed -i -e "/#listen 3333 all/c\listen ${EGG_LISTEN:-"3333"} all" "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf"
+sed -i -e "/#listen 3333 all/c\listen ${EGG_LISTEN_ALL:-"3333"} all" "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf"
+sed -i -e "/#   listen +5555 all/c\listen ${EGG_LISTEN_BOTS:-"+5555"} bots" "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf"
 
 # DNS servers
 sed -i -e "s/^#set dns-servers/set dns-servers/" "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf"
@@ -68,11 +69,11 @@ else
 fi
 
 EGG_LASTMOD=$(date +%s)
-echo "set ::EGG_LASTMOD				\"${EGG_LASTMOD}\""				>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
+echo "set ::EGG_LASTMOD				\"${EGG_LASTMOD}\""			    >> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 
-echo "set ::EGG_PASSWORD \"${EGG_PASSWORD:-BOTNET}\"" >> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
+echo "set ::EGG_PASSWORD            \"${EGG_PASSWORD:-BOTNET}\""    >> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 # Generate the secret file
-echo "${EGG_ISMASTER} ${EGG_PASSWORD} ${EGG_LISTEN:-3333} ${EGG_HOSTNAME} ${EGG_LASTMOD}" > ${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.sct
+echo "${EGG_ISMASTER} ${EGG_PASSWORD} ${EGG_LISTEN_BOTS:-+5555} ${EGG_HOSTNAME} ${EGG_LASTMOD}" > ${EGG_PATH_SECRETS}/${EGG_LONG_NAME}.sct
 
 # BOTNET SETTINGS - END
 sed -i "s@^set msg-rate 2@set msg-rate 0@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf

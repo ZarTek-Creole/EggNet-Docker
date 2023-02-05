@@ -13,9 +13,11 @@ proc userfileloaded { args } {
 			chattr ${::env(PPL_USER)} +hjlmnoptx
 			# Save the user data
 			save
-		} catch {
+		} on error {} {
 			# Handle any errors that may occur
-			putlog "Error userfileloaded: $error"
+    		putlog "Error userfileloaded: ${error}"
+		} finally {
+			putlog "Ajout du user ${::env(PPL_USER)}"
 		}
 	}
 	# Call the "BOTNET_CREATE" proc
@@ -26,19 +28,19 @@ proc userfileloaded { args } {
 # ::cron::every Update_botnet 300 ::BOTNET_CREATE
 
 proc ::BOTNET_CREATE {} {
-  set files [glob -directory ${::EGG_PATH_SECRETS} *.sct]
-  foreach FILE_SCT $files {
+	foreach FILE_SCT [glob -directory ${::EGG_PATH_SECRETS} *.sct] {
     set B_NAME [file rootname [file tail ${FILE_SCT}]]
     if { "${::botnet-nick}" == "${B_NAME}" } { continue }
 	set FILE_SCT		[open "${FILE_SCT}" r]
-    set SCT_DATA 		[split [read ${FILE_SCT}] "\n"]
+    set SCT_DATA 		[split [read ${FILE_SCT}]]
     close ${FILE_SCT}
-
     set BOT_ISMASTER	[lindex ${SCT_DATA} 0]
     set BOT_PASSWORD	[lindex ${SCT_DATA} 1]
     set BOT_PORT		[lindex ${SCT_DATA} 2]
     set BOT_HOSTNAME	[lindex ${SCT_DATA} 3]
     set BOT_LASTMOD		[lindex ${SCT_DATA} 4]
+	putlog "debug : ${SCT_DATA}"
+	putlog "debug : BOT_PASSWORD ${BOT_PASSWORD} BOT_PORT ${BOT_PORT} BOT_HOSTNAME ${BOT_HOSTNAME}"
 
     if {$BOT_ISMASTER == 1 && $::EGG_ISMASTER == 0} {
       	putlog "Ajout HUB addbot ${B_NAME} ${BOT_HOSTNAME} ${BOT_PORT}"
@@ -57,9 +59,9 @@ proc ::BOTNET_CREATE {} {
       	setuser ${B_NAME} PASS ${BOT_PASSWORD}
     }
 
-    catch {save}
     catch {link ${B_NAME}}
   }
+      catch {save}
 }
 # Call the "BOTNET_CREATE" proc after 5 seconds
 timer 5 ::BOTNET_CREATE 0

@@ -49,7 +49,8 @@ ENV INSTALLDIR=/eggdrop-data \
     EGG_OWNER="ZarTek" \
     EGG_ISMASTER="0" \
     EGG_USERNAME="" \
-    EGG_LISTEN="3333" \
+  EGG_LISTEN_ALL="3333"                                           \
+  EGG_LISTEN_BOTS="+5555"
     EGG_LOG_RAW_IO="0" \
     EGG_CONF_GENERATE="1" \
     EGG_MODULES_ENABLE="${EGG_MODULES_ENABLE}" \
@@ -83,7 +84,7 @@ ARG OS_NAME=debian \
 
 RUN addgroup --system --gid ${USER_GID} ${UNIX_GROUP} \
     && adduser --quiet --disabled-password --gecos '' --system --home /eggdrop-data --no-create-home --shell /bin/bash --uid ${USER_UID} --ingroup ${UNIX_GROUP} ${USERNAME} \
-    && mkdir -p /eggdrop-data/data /etc/dpkg/dpkg.cfg.d/ 
+    && mkdir -p /eggdrop-data/data /etc/dpkg/dpkg.cfg.d/
 
 COPY --from=builder /eggdrop-data /eggdrop-data
 
