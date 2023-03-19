@@ -12,3 +12,4 @@ docker_password.txt
 EggNet_DATADIR/
 docker-compose.yml
 tmp.Dockerfile
+yarn.lock
