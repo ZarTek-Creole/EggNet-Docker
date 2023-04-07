@@ -13,3 +13,4 @@ EggNet_DATADIR/
 docker-compose.yml
 tmp.Dockerfile
 yarn.lock
+node_modules/.yarn-integrity

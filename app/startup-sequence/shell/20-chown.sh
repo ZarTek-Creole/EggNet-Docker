@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2154
 # Make sure $DATADIR is owned by eggdrop user. This affects ownership of the
 # mounted directory on the host machine too.
 # Also allow the container to be started with `--user`.

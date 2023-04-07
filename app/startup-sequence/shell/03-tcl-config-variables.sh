@@ -1,17 +1,23 @@
 #!/bin/bash
-# Need generate or stop ?
-[ $EGG_CONF_GENERATE == 0 ] && exit 0
-echo "set ::EGG_PATH_SECRETS		\"${EGG_PATH_SECRETS}\""		>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-echo "set ::EGG_PATH_DATA			\"${EGG_PATH_DATA}\""			>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-echo "set ::EGG_PATH_LOGS			\"${EGG_PATH_LOGS}\""			>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-echo "set ::EGG_PATH_SCRIPTS		\"${EGG_PATH_SCRIPTS}\""		>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-echo "set ::EGG_HOSTNAME			\"${EGG_HOSTNAME}\""			>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-EGG_LASTMOD=$(date +%s)
-echo "set ::EGG_LASTMOD				\"${EGG_LASTMOD}\""				>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-echo "set ::EGG_LONG_NAME			\"${EGG_LONG_NAME}\""			>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
 
-echo "## VARIABLES MODULES ##"										>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-echo "set ::		\"${EGG_DISABLE_MODULES}\""		>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-echo "set ::EGG_MODULES_DISABLE		\"${EGG_MODULES_DISABLE}\""		>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-echo "set ::EGG_MODULES_ENABLE		\"${EGG_MODULES_EEGG_DISABLE_MODULESNABLE}\""		>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-echo "set ::EGG_MODULES_AVAILABLE	\"${EGG_MODULES_AVAILABLE}\""	>> ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
+# Do we need to generate or stop?
+if [[ "$EGG_CONF_GENERATE" == 0 ]]; then
+    exit 0
+fi
+
+# Write configuration settings to file
+cat <<EOF >> "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf"
+set ::EGG_PATH_SECRETS          "${EGG_PATH_SECRETS}"
+set ::EGG_PATH_DATA             "${EGG_PATH_DATA}"
+set ::EGG_PATH_LOGS             "${EGG_PATH_LOGS}"
+set ::EGG_PATH_SCRIPTS          "${EGG_PATH_SCRIPTS}"
+set ::EGG_HOSTNAME              "${EGG_HOSTNAME}"
+set ::EGG_LASTMOD               "$(date +%s)"
+set ::EGG_LONG_NAME             "${EGG_LONG_NAME}"
+
+## VARIABLES MODULES ##
+set ::EGG_DISABLE_MODULES       "${EGG_DISABLE_MODULES}"
+set ::EGG_MODULES_DISABLE       "${EGG_MODULES_DISABLE}"
+set ::EGG_MODULES_ENABLE        "${EGG_MODULES_ENABLE}"
+set ::EGG_MODULES_AVAILABLE     "${EGG_MODULES_AVAILABLE}"
+EOF

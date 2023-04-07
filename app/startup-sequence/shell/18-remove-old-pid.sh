@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2154
 if [ "$(id -u)" = '0' ]; then
     if [ -e "${INSTALLDIR}/bot.pid" ]; then
         echo "Found ${INSTALLDIR}/bot.pid, removing..."

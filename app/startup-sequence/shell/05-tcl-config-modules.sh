@@ -1,9 +1,20 @@
 #!/bin/bash
 
+# Enable Eggdrop modules
+enable_modules() {
+  local module
+  for module in "${EGG_MODULES_ENABLE[@]}"; do
+    sed -i "s@#loadmodule ${module}@loadmodule ${module}@" "${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf" || {
+      echo "Failed to enable module ${module}. Exiting..."
+      exit 1
+    }
+  done
+}
 
-sed -i 's@^loadmodule@#loadmodule@' ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-for MODULES in $(echo ${EGG_MODULES_ENABLE})
-do
-	echo "s@#loadmodule ${MODULES}@loadmodule ${MODULES}@"
-	sed -i "s@#loadmodule ${MODULES}@loadmodule ${MODULES}@" ${EGG_PATH_CONF}/${EGG_LONG_NAME}.conf
-done
+# Main function
+main() {
+  enable_modules
+}
+
+# Run the script
+main "$@"

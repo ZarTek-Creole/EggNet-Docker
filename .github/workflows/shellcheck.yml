@@ -9,4 +9,4 @@ jobs:
             - name: run shellcheck
               uses: sudo-bot/action-shellcheck@latest
               with:
-                  cli-args: "--format=checkstyle --severity=info app/startup-sequence/shell/*.sh"
+                  cli-args: "--format=checkstyle  -a --exclude=SC2154,SC2034 --external-sources --shell=bash --enable=all  $(egrep -l -wR --exclude-dir='.git' -e '#\s?!\s?.+(/|\s)(bash|sh|zsh|dash|csh|ksh|fish|tcsh|rc)\b' .)"

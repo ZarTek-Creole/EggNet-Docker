@@ -1,7 +1,7 @@
 #syntax=docker/dockerfile:1.4
 ARG OS_NAME=debian
 ARG OS_VERSION=stable-slim
-FROM ${OS_NAME}:${OS_VERSION} AS creole_eggdrop_builder
+FROM "${OS_NAME}":"${OS_VERSION}" AS creole_eggdrop_builder
 ARG PKG_BUILDER="gcc make tcl-dev libssl-dev git"                 \
   PKG_EXTRA_BUILDER=""                                            \
   PKG_RUNTIME="openssl tcl screen"                                \
@@ -13,11 +13,11 @@ ARG PKG_BUILDER="gcc make tcl-dev libssl-dev git"                 \
   SOURCEDIR=/eggdrop-src                                          \
   INSTALLDIR=/eggdrop-data                                        \
   USER_UID=1000                                                   \
-  USER_GID=$USER_UID                                              \
+  USER_GID="${USER_UID}"                                          \
   UNIX_USER=debian                                                \
   UNIX_GROUP=debian
 
-ENV INSTALLDIR=${INSTALLDIR}                                      \
+ENV INSTALLDIR="${INSTALLDIR}"                                    \
   EGG_NICK="Docker-Egg-???"                                       \
   EGG_OWNER="ZarTek"                                              \
   EGG_ISMASTER="0"                                                \
@@ -30,7 +30,7 @@ ENV INSTALLDIR=${INSTALLDIR}                                      \
   EGG_TLS_REGENERATE="0"                                          \
   EGG_SASL="1"                                                    \
   EGG_CAPS="1"                                                    \
-  EGG_MODULES_ENABLE=${EGG_MODULES_ENABLE}                        \
+  EGG_MODULES_ENABLE="${EGG_MODULES_ENABLE}"                      \
   EGG_MODULES_AVAILABLE=""                                        \
   EGG_MODULES_DISABLE=""                                          \
   EGG_KEEP_NICK="1"                                               \
@@ -59,15 +59,15 @@ ARG ADD_NON_FREE_PACKAGES="false"
 
 # Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies.
 COPY library-scripts/*.sh library-scripts/*.env /tmp/library-scripts/
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${UNIX_USER}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "${INSTALL_OH_MYS}" "${ADD_NON_FREE_PACKAGES}" \
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive                     && \
+/bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${UNIX_USER}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "${INSTALL_OH_MYS}" "${ADD_NON_FREE_PACKAGES}" && \
     #
     # ****************************************************************************
     # * TODO: Add any additional OS packages you want included in the definition *
     # * here. We want to do this before cleanup to keep the "layer" small.       *
     # ****************************************************************************
-    && apt-get -y install --no-install-recommends ${PKG_BUILDER} ${PKG_EXTRA_BUILDER} \
-    && /bin/bash /tmp/library-scripts/eggdrop-build.sh "${EGG_VERSION}" "${EGG_URL}" "${SOURCEDIR}" "${INSTALLDIR}" "${EGG_CONFIGURE_ARGS}" "${EGG_MODULES_ENABLE}"
+  apt-get -y install --no-install-recommends ${PKG_BUILDER} ${PKG_EXTRA_BUILDER} && \
+     /bin/bash /tmp/library-scripts/eggdrop-build.sh "${EGG_VERSION}" "${EGG_URL}" "${SOURCEDIR}" "${INSTALLDIR}" "${EGG_CONFIGURE_ARGS}" "${EGG_MODULES_ENABLE}"
    # && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 LABEL maintainer="ZarTek <ZarTek.Creole@GMail.com>" \
   org.opencontainers.image.title="Eggdrop builder" \
@@ -79,20 +79,20 @@ LABEL maintainer="ZarTek <ZarTek.Creole@GMail.com>" \
   org.opencontainers.image.version="0.0.2" \
   org.opencontainers.image.url="https://github.com/ZarTek-Creole/docker-eggdrop" \
   org.opencontainers.image.source="https://github.com/ZarTek-Creole/docker-eggdrop.git" \
-  egg.version=${EGG_VERSION}
+  egg.version="${EGG_VERSION}"
 
 
 # VOLUME ${INSTALLDIR}
-RUN mkdir -p ${INSTALLDIR}/data /etc/dpkg/dpkg.cfg.d/ \
-  # Update APT/OS - Install runtime packages
-  && apt-get update -qq \
-  && apt-get upgrade -qq --yes \
-  && apt-get install -qq -o=Dpkg::Use-Pty=0 --yes --no-install-recommends $(echo ${PKG_RUNTIME} ${PKG_EXTRA_RUNTIME})
+RUN mkdir -p "${INSTALLDIR}/data" "/etc/dpkg/dpkg.cfg.d/" && \
+    apt-get update -qq && \
+    apt-get upgrade -qqy && \
+    apt-get install -qq --no-install-recommends -o=Dpkg::Use-Pty=0 ${PKG_RUNTIME} ${PKG_EXTRA_RUNTIME} && \
+    rm -rf /var/lib/apt/lists/*
 
-WORKDIR ${INSTALLDIR}
+WORKDIR "${INSTALLDIR}"
 EXPOSE 3333
 COPY app/entrypoint.sh /
-COPY app/docker.tcl ${INSTALLDIR}/scripts/
+COPY app/docker.tcl "${INSTALLDIR}/scripts/"
 COPY app/startup-sequence /startup-sequence/
 
 

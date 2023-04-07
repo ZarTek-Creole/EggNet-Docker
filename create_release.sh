@@ -18,7 +18,7 @@ run_build() {
     eval "${BUILD_CMD}" || exit
     unset BUILD_CMD
 
-}backu
+}
 create_tag() {
     # echo docker tag "${IMAGE_NAME}:${BUILD_VERSION}" "${HUB_HOST}"/"${HUB_USER}"/"${IMAGE_NAME}:${BUILD_VERSION}" || exit 1
     # docker tag "${IMAGE_NAME}:${BUILD_VERSION}" "${HUB_HOST}"/"${HUB_USER}"/"${IMAGE_NAME}:${BUILD_VERSION}" || exit 1
@@ -31,8 +31,8 @@ create_tag() {
 echo "${BUILD_VERSION}" > LAST_BUILD_NUM
 LIST_BUILD="git builder eggnet"
 
-for EGG_VERSION in ${LIST_OF_EGG_VERS[*]}; do
-    for BUILD_NAME in ${LIST_BUILD[*]}; do
+for EGG_VERSION in "${LIST_OF_EGG_VERS[@]}"; do
+    for BUILD_NAME in "${LIST_BUILD[@]}"; do
         IMAGE_NAME=${BUILD_NAME,,}-"egg_vers_${EGG_VERSION}"
         TMP_BUILD_CMD="BUILD_CMD_${BUILD_NAME^^}"; BUILD_CMD=$(printf "${!TMP_BUILD_CMD}"); unset TMP_BUILD_CMD
         
